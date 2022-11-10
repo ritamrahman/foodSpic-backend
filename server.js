@@ -77,11 +77,11 @@ async function run() {
 
     // ---Reviews---
     // post review
-    app.post("/kitchenreview/:id", async (req, res) => {
+    app.post("/submitreview/:id", async (req, res) => {
       const id = req.params.id; //get kitchen _id
       const query = { _id: ObjectId(id) };
       const kitchen = await kitchenCollection.findOne(query); //find desire kitchen
-      console.log(kitchen);
+
       const kitchenId = kitchen._id;
 
       const review = req.body; //get review from body
@@ -89,7 +89,22 @@ async function run() {
 
       const result = await reviewCollection.insertOne({ ...review, kitchenId, dateWhenCreated });
 
-      res.json(result);
+      res.send(result);
+    });
+
+    // Get All Review By Kitchen id
+    app.get("/kitchenreview/:id", async (req, res) => {
+      let id = req.params.id; //get kitchen _id
+      const query = { kitchenId: ObjectId(id) };
+      const cursor = reviewCollection.find(query);
+
+      const reviews = await cursor.toArray();
+      res.send(reviews);
+
+      //const reviews = reviewCollection.find(query); //find desire kitchen
+      // res.json(query);
+
+      //res.json(reviews);
       // res.send("addkitchen route working");
     });
 
