@@ -93,14 +93,14 @@ async function run() {
       res.send(services);
     });
 
-    // // Single Kitchen
-    // app.get("/kitchen/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: ObjectId(id) };
-    //   const service = await kitchenCollection.findOne(query);
-    //   res.send(service);
-    //   console.log("id");
-    // });
+    // Single Kitchen
+    app.get("/kitchen/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const service = await kitchenCollection.findOne(query);
+      res.send(service);
+      console.log("id");
+    });
 
     // app.patch("/orders/:id", verifyJWT, async (req, res) => {
     //   const id = req.params.id;
