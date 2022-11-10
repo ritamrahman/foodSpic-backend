@@ -76,7 +76,6 @@ async function run() {
     // });
 
     // ---Kitchen---
-
     // addkitchen;
     app.post("/addkitchen", async (req, res) => {
       const kitchen = req.body;
@@ -89,16 +88,16 @@ async function run() {
     app.get("/allkitchens", async (req, res) => {
       const query = {};
       const cursor = kitchenCollection.find(query);
-      const services = await cursor.toArray();
-      res.send(services);
+      const kitchens = await cursor.toArray();
+      res.send(kitchens);
     });
 
     // Single Kitchen
     app.get("/kitchen/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
-      const service = await kitchenCollection.findOne(query);
-      res.send(service);
+      const kitchen = await kitchenCollection.findOne(query);
+      res.send(kitchen);
     });
 
     // app.patch("/orders/:id", verifyJWT, async (req, res) => {
