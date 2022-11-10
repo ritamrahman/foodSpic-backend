@@ -99,7 +99,6 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const service = await kitchenCollection.findOne(query);
       res.send(service);
-      console.log("id");
     });
 
     // app.patch("/orders/:id", verifyJWT, async (req, res) => {
