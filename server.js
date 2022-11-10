@@ -101,12 +101,16 @@ async function run() {
 
       const reviews = await cursor.toArray();
       res.send(reviews);
+    });
 
-      //const reviews = reviewCollection.find(query); //find desire kitchen
-      // res.json(query);
+    // Get My All Reviews
+    app.get("/myreviews/:email", async (req, res) => {
+      let email = req.params.email; //get kitchen _id
+      const query = { userEmail: email };
+      const cursor = reviewCollection.find(query);
 
-      //res.json(reviews);
-      // res.send("addkitchen route working");
+      const reviews = await cursor.toArray();
+      res.send(reviews);
     });
 
     // ---Kitchen---
