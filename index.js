@@ -84,11 +84,12 @@ async function run() {
       const kitchen = await kitchenCollection.findOne(query); //find desire kitchen
 
       const kitchenId = kitchen._id;
+      const kitchenName = kitchen.kitcheNname;
 
       const review = req.body; //get review from body
       const dateWhenCreated = Date(); //create date
 
-      const result = await reviewCollection.insertOne({ ...review, kitchenId, dateWhenCreated });
+      const result = await reviewCollection.insertOne({ ...review, kitchenId, kitchenName, dateWhenCreated });
 
       res.send(result);
     });
