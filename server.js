@@ -49,13 +49,6 @@ async function run() {
     //   res.send({ token });
     // });
 
-    // app.get("/services", async (req, res) => {
-    //   const query = {};
-    //   const cursor = serviceCollection.find(query);
-    //   const services = await cursor.toArray();
-    //   res.send(services);
-    // });
-
     // app.get("/services/:id", async (req, res) => {
     //   const id = req.params.id;
     //   const query = { _id: ObjectId(id) };
@@ -82,12 +75,32 @@ async function run() {
     //   res.send(orders);
     // });
 
+    // ---Kitchen---
+
+    // addkitchen;
     app.post("/addkitchen", async (req, res) => {
       const kitchen = req.body;
       const result = await kitchenCollection.insertOne(kitchen);
       res.send(result);
       // res.send("addkitchen route working");
     });
+
+    // allkitchen;
+    app.get("/allkitchens", async (req, res) => {
+      const query = {};
+      const cursor = kitchenCollection.find(query);
+      const services = await cursor.toArray();
+      res.send(services);
+    });
+
+    // // Single Kitchen
+    // app.get("/kitchen/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: ObjectId(id) };
+    //   const service = await kitchenCollection.findOne(query);
+    //   res.send(service);
+    //   console.log("id");
+    // });
 
     // app.patch("/orders/:id", verifyJWT, async (req, res) => {
     //   const id = req.params.id;
