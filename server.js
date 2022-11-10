@@ -75,13 +75,41 @@ async function run() {
     //   res.send(orders);
     // });
 
+    // ---Reviews---
+    // post review
+    app.post("/kitchenreview/:id", async (req, res) => {
+      const id = req.params.id; //get kitchen _id
+      const query = { _id: ObjectId(id) };
+      const kitchen = await kitchenCollection.findOne(query); //find desire kitchen
+      console.log(kitchen);
+      const kitchenId = kitchen._id;
+
+      const review = req.body; //get review from body
+      const dateWhenCreated = Date(); //create date
+
+      const result = await reviewCollection.insertOne({ ...review, kitchenId, dateWhenCreated });
+
+      res.json(result);
+      // res.send("addkitchen route working");
+    });
+
     // ---Kitchen---
     // addkitchen;
     app.post("/addkitchen", async (req, res) => {
       const kitchen = req.body;
-      const result = await kitchenCollection.insertOne(kitchen);
+      const dateWhenCreated = Date();
+      // const kitchenWithDate = { kitchen, dateWhenCreated };
+      const result = await kitchenCollection.insertOne({ ...kitchen, dateWhenCreated });
       res.send(result);
       // res.send("addkitchen route working");
+    });
+
+    // allkitchen for Home route
+    app.get("/topKitchens", async (req, res) => {
+      const query = {};
+      const cursor = kitchenCollection.find(query).limit(3);
+      const kitchens = await cursor.toArray();
+      res.send(kitchens);
     });
 
     // allkitchen;
